@@ -1,0 +1,17 @@
+
+fileio path=./small.output pfs=1
+
+time steps=10
+
+grid x=79000 y=93000 z=25000 h=800 lat=33.6 lon=-118.4 az=0
+proj=tmerc
+datum=NAD83 lon_p=-118.0 lat_p=34.0 scale=0.9996
+attenuation phasefreq=1.0 nmech=3 maxfreq=10
+
+ucvm filename=ucvm.in
+
+source x=2.5e3 y=2.5e3 z=1.5e3 mxy=1e18 t0=0.4 freq=15 type=Gaussian
+
+sfileoutput file=small.h800
+
+

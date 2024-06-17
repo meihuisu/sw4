@@ -8906,6 +8906,7 @@ void EW::processMaterialUCVM(char* buffer)
    string name = "ucvm";
    string filename = "NONE";
    string directory = "NONE";
+
    float_sw4 a_ppm=0.,vpmin_ppm=0.,vsmin_ppm=0,rhomin_ppm=0.;
    string cflatten = "NONE";
    bool flatten = false;

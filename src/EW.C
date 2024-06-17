@@ -7416,11 +7416,12 @@ void EW::extractTopographyFromUCVM( std::string a_topoFileName )
   int topLevel=mNumberOfGrids-1;
   double sw4_lon, sw4_lat;
 
-  char inname[128], outname[128], cmd[2048];
+  char inname[128], outname[128], cmd[2048], modellist[128];
   FILE *fptr;
   int nrow = 0, nfile = 0, material = 0;
   sprintf(inname, "/tmp/ucvm.topo.in.%d", m_myRank);
   sprintf(outname, "/tmp/ucvm.topo.out.%d", m_myRank);
+  sprintf(modellist, "cvmsi,elygtl:taper");
 
   int g = mNumberOfGrids-1;
   mTopo.define(m_iStart[g], m_iEnd[g], m_jStart[g], m_jEnd[g],1,1);
@@ -7454,7 +7455,7 @@ void EW::extractTopographyFromUCVM( std::string a_topoFileName )
           if (is_debug)
               fprintf(stderr, "Query batch %d / %d\n", nfile, total_batch);
           // query UCVM and append to output file
-          sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper < %s >> %s", inname, outname);
+          sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", modellist, inname, outname);
           system(cmd);
 
           fptr = fopen(inname, "w");
@@ -7471,7 +7472,7 @@ void EW::extractTopographyFromUCVM( std::string a_topoFileName )
   // query UCVM
   if (nrow > 0) {
       printf("Query last batch %d\n", nfile);
-      sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper < %s >> %s", inname, outname);
+      sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", modellist, inname, outname);
       system(cmd);
   }
 
@@ -7543,11 +7544,12 @@ void EW::extractTopographyFromCUSVM( std::string a_topoFileName )
   int topLevel=mNumberOfGrids-1;
   double sw4_lon, sw4_lat;
 
-  char inname[128], outname[128], cmd[2048];
+  char inname[128], outname[128], cmd[2048], modellist[128];
   FILE *fptr;
   int nrow = 0, nfile = 0, material = 0;
   sprintf(inname, "/tmp/cusvm.topo.in.%d", m_myRank);
   sprintf(outname, "/tmp/cusvm.topo.out.%d", m_myRank);
+  sprintf(modellist, "cvmsi,elygtl:taper");
 
   int g = mNumberOfGrids-1;
   mTopo.define(m_iStart[g], m_iEnd[g], m_jStart[g], m_jEnd[g],1,1);
@@ -7581,7 +7583,7 @@ void EW::extractTopographyFromCUSVM( std::string a_topoFileName )
           if (is_debug)
               fprintf(stderr, "Query batch %d / %d\n", nfile, total_batch);
           // query UCVM and append to output file
-          sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper < %s >> %s", inname, outname);
+          sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", modellist, inname, outname);
           system(cmd);
 
           fptr = fopen(inname, "w");
@@ -7598,7 +7600,7 @@ void EW::extractTopographyFromCUSVM( std::string a_topoFileName )
   // query UCVM
   if (nrow > 0) {
       printf("Query last batch %d\n", nfile);
-      sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper < %s >> %s", inname, outname);
+      sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", modellist, inname, outname);
       system(cmd);
   }
 

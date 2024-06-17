@@ -81,6 +81,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
 {
 // Assume attenuation arrays defined on all grids if they are defined on grid zero.
     bool use_q = m_use_attenuation && xis[0].is_defined() && xip[0].is_defined();
+
     bool is_debug = true;
 
     bool bulldoze = false;
@@ -89,7 +90,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
     uint64_t outside=0, material=0;
     double lon, lat, elev, topo_elev;
     int nrow, nfile = 0;
-    char inname[128], outname[128], cmd[2048];
+    char inname[128], outname[128], cmd[2048], mlist[128];
     double squash_bottom = 7000;
     double squash_power = 1.1;
 
@@ -101,6 +102,9 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
     // Find the relative dimension size of upper and lower interface for each grid patch
     int i1, j1;
     int g_fac[16];
+
+//    strcpy(mlist,"cvmsi,elygtl:taper -L 200,700,1500");
+    strcpy(mlist,"sfcvm,cca,sf1d");
 
     // No grid size reduction at the first curvilinear grid
     g_fac[mEW->mNumberOfGrids-1] = 1;
@@ -196,7 +200,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
                         if (is_debug)
                             fprintf(stderr, "Query batch %d / %d\n", nfile, total_batch);
                         // query UCVM and append to output file
-                        sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper -L 200,700,1500 < %s >> %s", inname, outname);
+                        sprintf(cmd, "ucvm_query -f  /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", mlist,inname, outname);
                         system(cmd);
 
                         fptr = fopen(inname, "w");
@@ -213,7 +217,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
         // query UCVM
         if (nrow > 0) {
             printf("Query last batch %d\n", nfile);
-            sprintf(cmd, "ucvm_query -f /pscratch/sd/h/houhun/ucvm.withSCPBR/conf/ucvm.conf -m cvmsi,elygtl:taper -L 200,700,1500 < %s >> %s", inname, outname);
+            sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", mlist,inname, outname);
             system(cmd);
         }
 
@@ -275,10 +279,19 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
                     rho[g](i, j, k) = comb_rho;
                     cp[g](i, j, k)  = comb_vp;
                     cs[g](i, j, k)  = comb_vs;
+
+		    // Scott's
+                    if( use_q ) {
+                      xis[g](i, j, k)  = 0.05 * comb_vs;
+                      xip[g](i, j, k)  = xis[g](i, j, k) * 2.0;
+		    }
+
+		    /* sw4's 
                     if( use_q ) {
                         xis[g](i, j, k)  = comb_vs / 1000.0 * 150.0;
                         xip[g](i, j, k)  = xis[g](i, j, k) * 2.0;
                     }
+		    */
 
                     if (fabs(lon - mylon) > 1e-3 )
                         printf("x=%.1ff, y=%.1f, sw4_lon=%f does not match ucvm_lon=%f!\n", x, y, lon, mylon);

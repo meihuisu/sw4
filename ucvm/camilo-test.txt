@@ -1,0 +1,31 @@
+# SW4 SCRIPT
+
+fileio path=./camilo_output pfs=1 verbose=1 printcycle=10 nwriters=16
+
+# GRID SIZE AND REFINEMENT
+#grid x=30000 y=15000 z=30000 h=100.0 lat=39.111563 lon=-122.569504 az=143.638 proj=tmerc datum=NAD83 lon_p=-123.0 lat_p=35.0 scale=0.9996
+#grid x=1000 y=1000 z=5000 h=10.0 
+
+grid x=79000 y=93000 z=25000 h=800 lat=33.6 lon=-118.4 az=0 proj=tmerc datum=NAD83 lon_p=-118.0 lat_p=34.0 scale=0.9996
+
+
+
+supergrid gp=30
+time t=1.0 utcstart=01/01/2021:00:00:00.0
+
+globalmaterial vsmin=250 vpmin=500
+attenuation phasefreq=1.0 nmech=3 maxfreq=10.0
+
+sfile filename=./test.output/test.h800.sfile
+
+#prefilter fc2=2.5 type=lowpass passes=2 order=2
+
+# POINT SOURCE
+source depth=8020 lat=34.0 lon=-118.0 m0=1.428894e15 dip=80 strike=155 rake=151 t0=1.0 freq=31.0 type=Dirac
+#source x=2500 y=2500 z=1500 m0=2.2107 dip=66.4 strike=28.2 rake=83.5 t0=1.0 freq=10.4 type=Liu
+
+#image mode=s z=0 file=image cycle=0
+
+# Stations
+rec lat=34.0 lon=-118.0 depth=0 file=1689_37.70895_-121.93329 variables=velocity nsew=1 usgsformat=1 sacformat=0
+

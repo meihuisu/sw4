@@ -950,8 +950,9 @@ void EW::set_materials()
       else
 	cout << "Only considering material blocks with index >= " << lastAllCoveringBlock << endl;
     } // end if proc_zero()
-    for( unsigned int b = lastAllCoveringBlock ; b < m_mtrlblocks.size() ; b++ )
+    for( unsigned int b = lastAllCoveringBlock ; b < m_mtrlblocks.size() ; b++ ) {
        m_mtrlblocks[b]->set_material_properties(mRho, mMu, mLambda, mQs, mQp); 
+    }
 
 //   bool linearExtrapolation=false;
 // note that material thresholding for vs and vp happens further down in this procedure
@@ -963,6 +964,7 @@ void EW::set_materials()
 //     extrapolateInZ(mQs[g], false, 0., linearExtrapolation); 
 //     extrapolateInZ(mQp[g], false, 0., linearExtrapolation); 
 //   }
+
 
 // extrapolate to define material properties above the free surface (topography)
    g = mNumberOfGrids-1;

@@ -1,0 +1,21 @@
+
+#
+#-A geo156 -q debug
+
+#salloc -A geo156 -q debug --nodes=1 --ntasks=2 --time=00:10:00 srun /ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4 sfcvm.txt
+
+#/ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4
+#
+#
+#salloc -A geo156 -q debug --nodes=1 --ntasks=1 --time=00:10:00 srun /ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4 small.txt
+#
+#
+salloc -A geo156 -q debug --nodes=1 --ntasks=1 --time=00:10:00 srun /ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4 test.txt
+
+#salloc -A geo156 -q debug --nodes=1 --ntasks=1 --time=00:10:00 srun /ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4 chinohills.txt
+
+#
+# running simulation like camilo does with the generated sfile
+#salloc -A geo156 -q debug --nodes=1 --ntasks=4 --time=00:10:00 srun /ccs/home/mei/scratch/sw4-ucvm_cmd/optimize_mp/sw4 camilo-test.txt
+
+
