@@ -1,0 +1,22 @@
+FC = gfortran
+CXX = mpicxx
+
+proj=yes
+hdf5=yes
+SW4ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/proj
+SQL3ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/sqlite
+HDF5ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/hdf5
+
+EXTRA_LINK_FLAGS = -L/home1/apps/nvidia/Linux_aarch64/24.7/math_libs/nvpl/lib -lnvpl_blas_lp64_gomp  -lnvpl_lapack_lp64_gomp -lnvpl_blacs_lp64_openmpi5 -lnvpl_scalapack_lp64 -L/opt/apps/gcc/13.2.0/lib64 -lgfortran 
+
+
+#module load tacc_tips
+#module load gcc/13.2.0
+#module load hdf5/1.14.4
+#module load sqlite/3.46.1
+#module load python3/3.11.8
+#module load automake
+#module load autoconf
+#moudle load blis
+#module load nvpl
+

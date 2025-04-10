@@ -83,7 +83,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
     const char  *env_ucvm_install_path = getenv("UCVM_INSTALL_PATH");
     if ( env_ucvm_install_path == NULL ) {
         fprintf(stderr, "UCVM_INSTALL_PATH is not set!!!");
-	bbort();
+	abort();
     }
 // Assume attenuation arrays defined on all grids if they are defined on grid zero.
     bool use_q = m_use_attenuation && xis[0].is_defined() && xip[0].is_defined();
