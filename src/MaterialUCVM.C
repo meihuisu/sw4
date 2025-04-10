@@ -79,6 +79,12 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
         std::vector<Sarray> & xis,
         std::vector<Sarray> & xip )
 {
+// Grab UCVM_INTALL_PATH environment variable
+    const char  *env_ucvm_install_path = getenv("UCVM_INSTALL_PATH");
+    if ( env_ucvm_install_path == NULL ) {
+        fprintf(stderr, "UCVM_INSTALL_PATH is not set!!!");
+	bbort();
+    }
 // Assume attenuation arrays defined on all grids if they are defined on grid zero.
     bool use_q = m_use_attenuation && xis[0].is_defined() && xip[0].is_defined();
 
@@ -200,7 +206,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
                         if (is_debug)
                             fprintf(stderr, "Query batch %d / %d\n", nfile, total_batch);
                         // query UCVM and append to output file
-                        sprintf(cmd, "ucvm_query -f  /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", mlist,inname, outname);
+                        sprintf(cmd, "ucvm_query -f  %s/conf/ucvm.conf -m %s < %s >> %s", env_ucvm_install_path,mlist,inname, outname);
                         system(cmd);
 
                         fptr = fopen(inname, "w");
@@ -217,7 +223,7 @@ void MaterialUCVM::set_material_properties(std::vector<Sarray> & rho,
         // query UCVM
         if (nrow > 0) {
             printf("Query last batch %d\n", nfile);
-            sprintf(cmd, "ucvm_query -f /ccs/home/mei/scratch/TARGET_UCVM_SFCVM/ucvm_install/conf/ucvm.conf -m %s < %s >> %s", mlist,inname, outname);
+            sprintf(cmd, "ucvm_query -f %s/conf/ucvm.conf -m %s < %s >> %s", env_ucvm_install_path, mlist,inname, outname);
             system(cmd);
         }
 
