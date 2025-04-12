@@ -1,14 +1,15 @@
+## TACC vista
+
 FC = gfortran
 CXX = mpicxx
 
 proj=yes
 hdf5=yes
-SW4ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/proj
-SQL3ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/sqlite
-HDF5ROOT=/scratch/07508/mei/TARGET_UCVM_VISTA/install/lib/hdf5
+SW4ROOT=${UCVM_INSTALL_PATH}/lib/proj
+SQL3ROOT=${UCVM_INSTALL_PATH}/lib/sqlite
+HDF5ROOT=${UCVM_INSTALL_PATH}/lib/hdf5
 
-EXTRA_LINK_FLAGS = -L/home1/apps/nvidia/Linux_aarch64/24.7/math_libs/nvpl/lib -lnvpl_blas_lp64_gomp  -lnvpl_lapack_lp64_gomp -lnvpl_blacs_lp64_openmpi5 -lnvpl_scalapack_lp64 -L/opt/apps/gcc/13.2.0/lib64 -lgfortran 
-
+EXTRA_LINK_FLAGS = -L${TACC_NVPL_DIR}/lib -lnvpl_blas_lp64_gomp  -lnvpl_lapack_lp64_gomp -lnvpl_blacs_lp64_openmpi5 -lnvpl_scalapack_lp64 -L${GCC_LIB} -lgfortran 
 
 #module load tacc_tips
 #module load gcc/13.2.0
@@ -20,3 +21,4 @@ EXTRA_LINK_FLAGS = -L/home1/apps/nvidia/Linux_aarch64/24.7/math_libs/nvpl/lib -l
 #moudle load blis
 #module load nvpl
 
+#TACC_NVPL_DIR=/home1/apps/nvidia/Linux_aarch64/24.7/math_libs/nvpl

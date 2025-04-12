@@ -1,0 +1,27 @@
+## FOR TACC Frontera
+
+FC = gfortran
+CXX = mpicxx
+
+proj=yes
+hdf5=yes
+SW4ROOT = ${UCVM_INSTALL_PATH}/lib/proj
+SQL3ROOT = ${UCVM_INSTALL_PATH}/lib/sqlite
+HDF5ROOT = ${UCVM_INSTALL_PATH}/lib/hdf5
+
+EXTRA_CXX_FLAGS  = -fopenmp -I$MKLROOT/include
+EXTRA_FORT_FLAGS =
+EXTRA_LINK_FLAGS = -L${UCVM_INSTALL_PATH}/lib/openssl/lib -lcrypto -lssl -Wl,-L${MKLROOT}/lib/intel64 -lmkl_intel_lp64 -lmkl_core -lmkl_gnu_thread -lpthread -lm -ldl -L${GCC_LIB} -lgfortran                                                           
+#module load gcc/13.2.0
+#module load hdf5/1.14.4
+#module load sqlite/3.43.0
+#module load automake
+#module load autoconf
+#module load mkl
+#
+#  conflicted with gcc
+#  module load python3/3.9.2
+#  need to build anaconda
+#
+
+##MKLROOT /opt/intel/oneapi/mkl/2023.1.0
