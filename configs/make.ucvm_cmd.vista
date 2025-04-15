@@ -5,16 +5,24 @@ CXX = mpicxx
 
 proj=yes
 hdf5=yes
-SW4ROOT=${UCVM_INSTALL_PATH}/lib/proj
-SQL3ROOT=${UCVM_INSTALL_PATH}/lib/sqlite
-HDF5ROOT=${UCVM_INSTALL_PATH}/lib/hdf5
+
+#SW4ROOT=${UCVM_INSTALL_PATH}/lib/proj
+#SQL3ROOT=${UCVM_INSTALL_PATH}/lib/sqlite
+#HDF5ROOT=${UCVM_INSTALL_PATH}/lib/hdf5
+
+SW4ROOT=${TACC_PROJ_DIR}
+SQL3ROOT=${TACC_SQLITE_DIR}
+HDF5ROOT=${TACC_PHDF5_DIR}
 
 EXTRA_LINK_FLAGS = -L${TACC_NVPL_DIR}/lib -lnvpl_blas_lp64_gomp  -lnvpl_lapack_lp64_gomp -lnvpl_blacs_lp64_openmpi5 -lnvpl_scalapack_lp64 -L${GCC_LIB} -lgfortran 
 
 #module load tacc_tips
 #module load gcc/13.2.0
-#module load hdf5/1.14.4
+#
+#module load phdf5/1.14.4
 #module load sqlite/3.46.1
+#module load proj/9.3.1
+#
 #module load python3/3.11.8
 #module load automake
 #module load autoconf
